@@ -12,16 +12,20 @@ class Category extends Model
         'user_id', 'name' , 'enable'
     ];
 
-//    protected static function boot()
-//    {
-//        parent::boot();
-//        static::deleting(function (Category $category){
-//            foreach ($category->posts() as $post)
-//                $post->deleteImage();
-//        });
-//    }
+    protected static function boot()
+    {
+        parent::boot();
+        static::deleting(function (Category $category){
+            foreach ($category->products() as $product)
+                $product->deleteImage();
+        });
+    }
 
     function user() {
         return $this->belongsTo(User::class);
+    }
+
+    function products(){
+        return $this->hasMany(Product::class);
     }
 }
