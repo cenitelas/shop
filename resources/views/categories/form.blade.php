@@ -30,7 +30,7 @@ $category = $category ?? null;
                     </div>
                     @enderror
                 </div>
-                <button class="btn btn-primary">{{ $category ? 'Обновить' : 'Добавить' }}</button>
+                <button class="btn btn-success">{{ $category ? 'Обновить' : 'Добавить' }}</button>
 
             </form>
 

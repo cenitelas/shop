@@ -1,4 +1,4 @@
-<div class="card w-25 m-4 shadow new-card d-flex flex-column justify-content-between" style="height: 350px; cursor: pointer">
+<div class="card @if(empty($cart)) w-25 @endif m-4 shadow new-card d-flex flex-column justify-content-between" style="height: 350px; cursor: pointer">
     <a href="{{route('products.show',$product)}}" style="font-size: 15px;color: black; text-decoration: none" class="font-weight-bold text-center text-capitalize">
         {{$product->name}}
     </a>
@@ -12,6 +12,7 @@
             <div class="text-black-50 font-weight-bolder">
                 Стоимость: {{$product->price}} тг
             </div>
+            @if(empty($cart))
             @auth
                 @if(auth()->user()->role->name==='admin')
                     <div class="d-flex align-items-center">
@@ -37,6 +38,7 @@
                         </svg>
                     </a>
                 @endif
+            @endif
             @endif
         </div>
     </div>

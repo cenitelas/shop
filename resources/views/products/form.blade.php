@@ -64,22 +64,32 @@ $product = $product ?? null;
 
                 <div class="form-group">
                     <label for="price">Стоимоть товара</label>
-                    <input class="form-control"
+                    <input class="form-control @error('price') is-invalid @enderror"
                               name="price"
                               id="price"
                               type="number"
                               placeholder="Стоимоть товара..."
                               value="{{ old('price', $product->price ?? null) }}"
                     />
+                    @error('price')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
 
                 <div class="form-group">
                     <label for="description">Описание товара</label>
-                    <textarea class="form-control"
+                    <textarea class="form-control @error('description') is-invalid @enderror"
                               name="description"
                               id="description"
                               rows="10"
                               placeholder="Описание товара...">{{ old('description', $product->description ?? null) }}</textarea>
+                    @error('description')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
                 </div>
 
                 <button class="btn btn-success">{{ $product ? 'Обновить' : 'Добавить' }}</button>

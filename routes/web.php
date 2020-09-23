@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,10 +17,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
-
-Auth::routes();
 
 Route::middleware('auth')
     ->group(function () {
@@ -27,10 +28,16 @@ Route::middleware('auth')
             ->except('index');
         Route::get('categories', [CategoryController::class,'index'])
             ->name('categories.index');
+        Route::resource('carts', CartController::class)
+            ->except('index');
+        Route::get('carts', [CartController::class,'index'])
+            ->name('carts.index');
+        Route::resource('orders',OrderController::class)
+            ->except('index');
+        Route::get('orders', [OrderController::class,'index'])
+            ->name('orders.index');
         Route::resource('products', ProductController::class)
             ->except('index', 'show');
-        Route::post('/products/addcart', [ProductController::class,'addCart'])
-            ->name('product.addcart');
     });
 Route::get('user', [App\Http\Controllers\UserController::class, 'index'])
     ->name('user.index');
@@ -43,6 +50,9 @@ Route::get('/{view}/sort/by/price/{type}', [ProductController::class,'sortByPric
 
 Route::get('/search', [ProductController::class,'search'])
     ->name('products.search');
+
+Route::get('/about', [HomeController::class,'about'])
+    ->name('home.about');
 
 Route::get('products/{product}', [ProductController::class,'show'])
     ->name('products.show');

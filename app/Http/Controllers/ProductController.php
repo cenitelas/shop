@@ -107,14 +107,6 @@ class ProductController extends Controller
         ]);
     }
 
-    public function addCart(Request $request)
-    {
-        $product = Product::all()
-            ->where('id',$request['product_id'])
-            ->first();
-        return response()->json(['name' => $product->name], 200);
-    }
-
     public function update(ProductFormRequest $request, Product $product)
     {
         $this->authorize('update', $product);

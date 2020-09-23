@@ -14,6 +14,6 @@ class UserController extends Controller
 
     public function index()
     {
-        return view('user.show');
+        return redirect(route('home.index'));
     }
 }
